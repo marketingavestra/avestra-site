@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copiloto Jurídico — 6 Agentes de IA para Advogados | Dr. Wladmir Bonadio</title>
+<meta name="description" content="6 agentes de IA especializados em peças processuais, contratos, prazos, riscos e honorários. Por R$27/mês.">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W98WXF4D');</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,400;12..96,700;12..96,800&family=DM+Mono:ital,wght@0,300;0,400&display=swap" rel="stylesheet">
+
+<style>
+/* ── TOKENS ────────────────────────────────────────────── */
+:root {
+  --bg:     #04080F;
+  --b1:     #204080;
+  --b4:     #6090C0;
+  --b5:     #90C0E0;
+  --n1:     #E0E0D0;
+  --n3:     #B0C0D0;
+  --n4:     #7090C0;
+  --amber:  #f59e0b;
+  --ok:     #22c55e;
+  --danger: #ef4444;
+  --border: rgba(80,112,176,.18);
+  --surf:   rgba(32,64,128,.06);
+  --surf2:  rgba(32,64,128,.13);
+}
+
+/* ── RESET ─────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--n1);
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:16px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+
+/* grid de fundo */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(32,64,128,.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(32,64,128,.032) 1px, transparent 1px);
+  background-size:56px 56px;
+}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+/* ── NAV ───────────────────────────────────────────────── */
+nav{
+  position:sticky;top:0;z-index:100;
+  border-bottom:1px solid var(--border);
+  background:rgba(4,8,15,.9);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.nav-inner{
+  max-width:1120px;margin:0 auto;padding:0 28px;
+  height:62px;display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  font-size:17px;font-weight:800;color:#fff;letter-spacing:-.5px;
+  text-decoration:none;display:flex;align-items:center;gap:10px;
+}
+.logo-sq{
+  width:34px;height:34px;border-radius:8px;
+  background:var(--b1);border:1px solid rgba(144,192,224,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:var(--b5);letter-spacing:0;
+}
+.logo em{color:var(--b5);font-style:normal}
+.nav-sub{font-size:12px;font-weight:300;color:var(--n4);display:none}
+@media(min-width:640px){.nav-sub{display:block}}
+.nav-cta{
+  background:var(--amber);color:#000;
+  font-family:inherit;font-size:13px;font-weight:800;letter-spacing:-.3px;
+  padding:9px 22px;border-radius:980px;border:none;cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;
+  transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s cubic-bezier(.4,0,.2,1);
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(245,158,11,.38)}
+
+/* ── HERO ──────────────────────────────────────────────── */
+.hero{padding:96px 28px 72px;text-align:center;position:relative;z-index:1}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(32,64,128,.18);border:1px solid var(--border);
+  color:var(--b5);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 16px;border-radius:980px;margin-bottom:36px;
+}
+.badge-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--b5);flex-shrink:0;
+  animation:blink 2s ease infinite;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+.hero h1{
+  font-size:clamp(54px,8.5vw,108px);font-weight:800;
+  letter-spacing:-5px;line-height:.9;color:#fff;margin-bottom:28px;
+}
+.hero h1 em{font-style:normal;color:var(--b5)}
+.hero h1 .thin{font-weight:200;color:var(--n4)}
+
+.hero-sub{
+  font-size:clamp(15px,2vw,18px);font-weight:300;color:var(--n3);
+  max-width:500px;margin:0 auto 52px;line-height:1.75;
+}
+
+.hero-btns{
+  display:flex;align-items:center;justify-content:center;
+  gap:12px;margin-bottom:64px;flex-wrap:wrap;
+}
+.btn-amber{
+  background:var(--amber);color:#000;
+  font-family:inherit;font-size:16px;font-weight:800;letter-spacing:-.4px;
+  padding:16px 40px;border-radius:980px;border:none;cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s cubic-bezier(.4,0,.2,1);
+}
+.btn-amber:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(245,158,11,.42)}
+.btn-outline{
+  background:transparent;color:var(--n3);
+  font-family:inherit;font-size:15px;font-weight:400;letter-spacing:-.2px;
+  padding:15px 32px;border-radius:980px;border:1px solid var(--border);
+  cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;gap:7px;
+  transition:all .25s cubic-bezier(.4,0,.2,1);
+}
+.btn-outline:hover{border-color:var(--b5);color:var(--b5);background:rgba(144,192,224,.05)}
+
+.stats-strip{
+  display:inline-flex;
+  background:var(--surf);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  max-width:100%;
+}
+.stat{
+  padding:18px 28px;text-align:center;
+  border-right:1px solid var(--border);
+}
+.stat:last-child{border-right:none}
+.stat-n{
+  font-size:28px;font-weight:800;color:#fff;
+  letter-spacing:-1.5px;line-height:1;margin-bottom:4px;
+}
+.stat-l{font-size:11px;color:var(--n4);font-weight:300;white-space:nowrap}
+
+/* ── SEÇÃO BASE ────────────────────────────────────────── */
+.sec{padding:80px 0;position:relative;z-index:1}
+.sec-head{text-align:center;margin-bottom:52px}
+.eyebrow{
+  font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--b5);margin-bottom:14px;
+}
+.sec-h{
+  font-size:clamp(30px,4.5vw,54px);font-weight:800;
+  letter-spacing:-2.5px;color:#fff;line-height:1.02;margin-bottom:16px;
+}
+.sec-p{
+  font-size:15px;color:var(--n3);font-weight:300;
+  max-width:480px;margin:0 auto;line-height:1.75;
+}
+
+/* ── GRID DE AGENTES ───────────────────────────────────── */
+.agents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.agent-card{
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:16px;padding:26px;
+  transition:all .3s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;
+}
+.agent-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--b5),transparent);
+  opacity:0;transition:opacity .3s cubic-bezier(.4,0,.2,1);
+}
+.agent-card:hover{border-color:rgba(80,112,176,.45);background:var(--surf2);transform:translateY(-4px)}
+.agent-card:hover::after{opacity:1}
+.card-num{
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:400;
+  color:var(--b4);letter-spacing:.1em;margin-bottom:14px;
+}
+.card-icon{
+  width:42px;height:42px;border-radius:10px;
+  background:rgba(32,64,128,.25);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;margin-bottom:14px;
+}
+.card-title{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.4px;margin-bottom:8px}
+.card-desc{font-size:13px;color:var(--n3);font-weight:300;line-height:1.55}
+
+/* ── DEMO INTERATIVO ───────────────────────────────────── */
+.demo-box{
+  display:grid;grid-template-columns:252px 1fr;
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;min-height:560px;
+}
+.demo-sidebar{
+  background:rgba(4,8,15,.5);border-right:1px solid var(--border);
+  padding:14px 10px;
+}
+.demo-sb-label{
+  font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--n4);padding:0 12px;margin-bottom:10px;
+}
+.d-btn{
+  width:100%;background:transparent;border:none;text-align:left;
+  cursor:pointer;display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:10px;margin-bottom:3px;
+  font-family:inherit;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+}
+.d-btn:hover{background:rgba(32,64,128,.2)}
+.d-btn.on{background:rgba(32,64,128,.38);border:1px solid rgba(80,112,176,.28)}
+.d-ico{font-size:17px;flex-shrink:0}
+.d-lbl{font-size:12.5px;font-weight:600;color:var(--n1);line-height:1.3}
+.d-btn.on .d-lbl{color:var(--b5)}
+
+.demo-main{display:flex;flex-direction:column}
+.demo-bar{
+  display:flex;align-items:center;gap:12px;
+  padding:17px 22px;border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.dbar-ico{font-size:21px}
+.dbar-name{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.5px;flex:1}
+.dbar-tag{
+  background:rgba(32,64,128,.3);border:1px solid var(--border);
+  color:var(--b5);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 10px;border-radius:980px;
+}
+
+.demo-panel{display:none;flex-direction:column;gap:16px;padding:22px 22px 26px;overflow-y:auto}
+.demo-panel.on{display:flex}
+
+.msg{display:flex;gap:10px}
+.msg.usr{flex-direction:row-reverse}
+.av{
+  width:30px;height:30px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+  background:rgba(32,64,128,.28);border:1px solid var(--border);
+}
+.av.bot{background:var(--b1)}
+.bubble{
+  max-width:90%;padding:11px 15px;border-radius:12px;
+  font-size:13px;line-height:1.65;white-space:pre-wrap;word-break:break-word;
+}
+.bubble.u{
+  background:rgba(32,64,128,.26);border:1px solid rgba(80,112,176,.18);
+  color:var(--n1);border-radius:12px 4px 12px 12px;
+  font-family:'Bricolage Grotesque',sans-serif;
+}
+.bubble.a{
+  background:rgba(4,8,15,.72);border:1px solid var(--border);
+  color:var(--n1);border-radius:4px 12px 12px 12px;
+  font-family:'DM Mono',monospace;font-size:12px;
+}
+.bubble.a .hi{color:var(--b5);font-weight:700}
+.bubble.a .ok{color:var(--ok);font-weight:700}
+.bubble.a .warn{color:var(--amber);font-weight:700}
+.bubble.a .crit{color:var(--danger);font-weight:700}
+.bubble.a .dim{color:var(--n4)}
+
+/* ── PRICING ───────────────────────────────────────────── */
+.pricing-card{
+  max-width:480px;margin:0 auto;
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:24px;padding:48px 40px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.pricing-card::before{
+  content:'';position:absolute;top:-1px;left:15%;right:15%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--b5),transparent);
+}
+.p-badge{
+  display:inline-block;
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.28);
+  color:var(--amber);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 14px;border-radius:980px;margin-bottom:28px;
+}
+.p-price{
+  font-size:84px;font-weight:800;color:#fff;
+  letter-spacing:-5px;line-height:1;margin-bottom:2px;
+}
+.p-price sup{font-size:32px;vertical-align:top;margin-top:18px;display:inline-block;letter-spacing:0}
+.p-period{font-size:14px;font-weight:300;color:var(--n4);margin-bottom:30px}
+.p-desc{font-size:14px;font-weight:300;color:var(--n3);line-height:1.7;margin-bottom:32px}
+.feat-list{list-style:none;text-align:left;display:flex;flex-direction:column;gap:11px;margin-bottom:36px}
+.feat-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;font-weight:300;color:var(--n1)}
+.feat-list li::before{content:'✓';color:var(--b5);font-weight:800;flex-shrink:0;margin-top:1px}
+.p-cta{
+  width:100%;
+  background:var(--amber);color:#000;
+  font-family:inherit;font-size:17px;font-weight:800;letter-spacing:-.5px;
+  padding:18px;border-radius:980px;border:none;cursor:pointer;
+  text-decoration:none;display:block;text-align:center;
+  transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s cubic-bezier(.4,0,.2,1);
+}
+.p-cta:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(245,158,11,.42)}
+
+/* ── FINAL CTA ─────────────────────────────────────────── */
+.final{
+  padding:80px 28px;text-align:center;
+  position:relative;z-index:1;border-top:1px solid var(--border);
+}
+.final h2{
+  font-size:clamp(36px,6vw,74px);font-weight:800;
+  letter-spacing:-4px;color:#fff;line-height:.92;margin-bottom:20px;
+}
+.final h2 .thin{font-weight:200;color:var(--n4)}
+.final p{
+  font-size:16px;font-weight:300;color:var(--n3);
+  max-width:440px;margin:0 auto 40px;line-height:1.75;
+}
+
+/* ── FOOTER ────────────────────────────────────────────── */
+footer{
+  border-top:1px solid var(--border);padding:28px;
+  text-align:center;font-size:12px;color:var(--n4);font-weight:300;
+  position:relative;z-index:1;
+}
+footer a{color:var(--b5);text-decoration:none}
+
+/* ── SCROLL REVEAL ─────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:none}
+
+/* ── RESPONSIVO ────────────────────────────────────────── */
+@media(max-width:960px){
+  .agents-grid{grid-template-columns:repeat(2,1fr)}
+  .demo-box{grid-template-columns:200px 1fr}
+  .stat{padding:16px 18px}
+  .stat-n{font-size:22px}
+}
+@media(max-width:600px){
+  .hero h1{letter-spacing:-2.5px}
+  .hero-btns{flex-direction:column;align-items:stretch}
+  .btn-amber,.btn-outline{text-align:center;justify-content:center}
+  .stats-strip{display:flex;flex-direction:column;width:100%;max-width:320px;margin:0 auto}
+  .stat{border-right:none;border-bottom:1px solid var(--border)}
+  .stat:last-child{border-bottom:none}
+  .agents-grid{grid-template-columns:1fr}
+  .demo-box{grid-template-columns:1fr}
+  .demo-sidebar{border-right:none;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px;padding:12px}
+  .d-btn{width:auto;flex:1 1 140px;min-width:0}
+  .pricing-card{padding:36px 22px}
+  .p-price{font-size:68px}
+  .final h2{letter-spacing:-2.5px}
+}
+</style>
+</head>
+<body>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W98WXF4D" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- ── NAV ─────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">
+      <div class="logo-sq">CJ</div>
+      Copiloto <em>Jurídico</em>
+    </a>
+    <div style="display:flex;align-items:center;gap:20px">
+      <span class="nav-sub">6 agentes · R$27/mês</span>
+      <a class="nav-cta" href="https://pay.hotmart.com/V105994251O?off=7xe30h5v" target="_blank" rel="noopener">Assinar agora</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="badge">
+    <div class="badge-dot"></div>
+    Dr. Wladmir Bonadio · OAB/SP 398.640
+  </div>
+  <h1>6 IAs.<br><span class="thin">1 escritório.</span></h1>
+  <p class="hero-sub">
+    Seis agentes especializados que pesquisam jurisprudência, redigem petições, revisam contratos, calculam prazos, analisam riscos e calculam seus honorários — por R$27 por mês.
+  </p>
+  <div class="hero-btns">
+    <a class="btn-amber" href="https://pay.hotmart.com/V105994251O?off=7xe30h5v" target="_blank" rel="noopener">Assinar por R$27/mês →</a>
+    <a class="btn-outline" href="#demo">Ver os agentes em ação</a>
+  </div>
+  <div class="stats-strip">
+    <div class="stat">
+      <div class="stat-n">6</div>
+      <div class="stat-l">agentes especializados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">2h</div>
+      <div class="stat-l">economizadas por processo</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">STJ</div>
+      <div class="stat-l">STF · TRTs · TJs</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">R$27</div>
+      <div class="stat-l">por mês, sem fidelidade</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AGENTES ───────────────────────────────────────────── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Os 6 agentes</div>
+      <h2 class="sec-h">Cada área do escritório.<br>Um agente dedicado.</h2>
+      <p class="sec-p">Use um por vez ou encadeie todos — o resultado de um alimenta o próximo. É uma central multi-agentes no seu WhatsApp.</p>
+    </div>
+    <div class="agents-grid">
+      <div class="agent-card reveal">
+        <div class="card-num">01 · PESQUISADOR</div>
+        <div class="card-icon">🔍</div>
+        <div class="card-title">Pesquisador de Jurisprudência</div>
+        <div class="card-desc">Localiza precedentes no STJ, STF, TST e TJs regionais. Organiza por relevância, indica o quantum médio praticado e como usar cada julgado na peça.</div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="card-num">02 · REDATOR</div>
+        <div class="card-icon">📄</div>
+        <div class="card-title">Redator de Petições</div>
+        <div class="card-desc">Redige iniciais, contestações, recursos e memoriais completos — com fatos, direito, jurisprudência incorporada e pedidos prontos para protocolo.</div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="card-num">03 · EDITOR</div>
+        <div class="card-icon">📋</div>
+        <div class="card-title">Editor de Contratos</div>
+        <div class="card-desc">Revisa minutas cláusula a cláusula, classifica por risco (crítico / atenção / ok) e propõe redação alternativa para cada ponto problemático.</div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="card-num">04 · PRAZOS</div>
+        <div class="card-icon">⏱️</div>
+        <div class="card-title">Gerenciador de Prazos</div>
+        <div class="card-desc">Calcula prazos em dias úteis (CPC) ou corridos (CLT), conta da publicação no DJe e entrega a lista priorizada com datas exatas.</div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="card-num">05 · JURIMETRIA</div>
+        <div class="card-icon">⚖️</div>
+        <div class="card-title">Analista de Riscos</div>
+        <div class="card-desc">Calcula a probabilidade de êxito com dados históricos do tribunal, força da tese e qualidade das provas. Diagnóstico realista, não otimista.</div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="card-num">06 · HONORÁRIOS</div>
+        <div class="card-icon">💰</div>
+        <div class="card-title">Calculador de Honorários</div>
+        <div class="card-desc">Calcula honorários contratuais e de sucumbência pela tabela OAB e CPC art. 85. Monta propostas e gera a cláusula pronta para o contrato.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DEMO ──────────────────────────────────────────────── -->
+<section class="sec" id="demo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Demo interativo</div>
+      <h2 class="sec-h">Veja cada agente<br>trabalhando.</h2>
+      <p class="sec-p">Clique em qualquer agente à esquerda para ver um exemplo real de uso. Isso é exatamente o que você recebe na prática.</p>
+    </div>
+
+    <div class="demo-box reveal">
+      <!-- sidebar -->
+      <div class="demo-sidebar">
+        <div class="demo-sb-label">Agentes</div>
+        <button class="d-btn on" data-p="1" onclick="sw(1)"><span class="d-ico">🔍</span><span class="d-lbl">Pesquisador</span></button>
+        <button class="d-btn"    data-p="2" onclick="sw(2)"><span class="d-ico">📄</span><span class="d-lbl">Redator de Petições</span></button>
+        <button class="d-btn"    data-p="3" onclick="sw(3)"><span class="d-ico">📋</span><span class="d-lbl">Editor de Contratos</span></button>
+        <button class="d-btn"    data-p="4" onclick="sw(4)"><span class="d-ico">⏱️</span><span class="d-lbl">Gerenciador de Prazos</span></button>
+        <button class="d-btn"    data-p="5" onclick="sw(5)"><span class="d-ico">⚖️</span><span class="d-lbl">Analista de Riscos</span></button>
+        <button class="d-btn"    data-p="6" onclick="sw(6)"><span class="d-ico">💰</span><span class="d-lbl">Calculador de Honorários</span></button>
+      </div>
+
+      <!-- área principal -->
+      <div class="demo-main">
+        <div class="demo-bar">
+          <span class="dbar-ico" id="dico">🔍</span>
+          <span class="dbar-name" id="dname">Pesquisador de Jurisprudência</span>
+          <span class="dbar-tag"  id="dtag">STJ · STF · TRTs</span>
+        </div>
+
+        <!-- PAINEL 1 — PESQUISADOR -->
+        <div id="dp1" class="demo-panel on">
+          <div class="msg usr">
+            <div class="av">👤</div>
+            <div class="bubble u">Preciso de jurisprudência sobre dano moral por negativação indevida em nome de terceiro. Ação cível, TJSP.</div>
+          </div>
+          <div class="msg">
+            <div class="av bot">🔍</div>
+            <div class="bubble a"><span class="hi">🔍 PESQUISA JURISPRUDENCIAL</span>
+Tese: Dano moral — negativação indevida de terceiro não-cliente
+
+<span class="hi">📌 STJ (Superior Tribunal de Justiça)</span>
+<span class="ok">• REsp 1.861.237/SP</span> · Min. Nancy Andrighi · Nov/2023
+  "O credor que inscreve o nome de terceiro responde por danos
+  morais <span class="hi">in re ipsa</span> — independente da prova do abalo."
+  ✅ Aplica-se diretamente. Dispensa prova de prejuízo.
+
+<span class="ok">• AgInt no AREsp 2.156.843/RJ</span> · Min. Marco Buzzi · Ago/2024
+  Quantum fixado entre R$5.000–R$15.000 em casos similares.
+
+<span class="hi">📌 TJSP (Regional)</span>
+<span class="ok">• AC 1034521-97.2023.8.26.0100</span> · 7ª Câmara · Mar/2024
+  Condenação em R$8.000 mantida. Autora nunca foi correntista.
+
+<span class="hi">📊 QUANTUM MÉDIO TJSP: R$6.000 a R$12.000</span>
+<span class="warn">💡 Use o REsp 1.861.237 como precedente principal.
+   Peça R$10.000 — dentro da faixa do tribunal.</span></div>
+          </div>
+        </div>
+
+        <!-- PAINEL 2 — REDATOR -->
+        <div id="dp2" class="demo-panel">
+          <div class="msg usr">
+            <div class="av">👤</div>
+            <div class="bubble u">Petição inicial — ação de danos morais. Cliente Maria da Silva. Banco XYZ inscreveu o nome dela no SPC sem ela nunca ter sido correntista. Tem carta do banco e print do cadastro.</div>
+          </div>
+          <div class="msg">
+            <div class="av bot">📄</div>
+            <div class="bubble a"><span class="hi">EXMO. SR. DR. JUIZ DE DIREITO DA ___ VARA CÍVEL</span>
+<span class="dim">COMARCA DE SÃO PAULO/SP</span>
+
+<span class="hi">MARIA DA SILVA</span>, CPF [___], vem propor
+
+<span class="hi">AÇÃO DE INDENIZAÇÃO POR DANOS MORAIS</span>
+
+em face de <span class="warn">BANCO XYZ S.A.</span>, CNPJ [___]:
+
+<span class="hi">I. DOS FATOS</span>
+Em [data], a autora tomou conhecimento de que seu nome constava
+nos cadastros do SPC (doc. 02), por iniciativa do réu, apesar de
+jamais ter mantido qualquer relação jurídica com o banco (doc. 01).
+
+<span class="hi">II. DO DIREITO</span>
+CC arts. 186 e 927. CDC art. 6º, VI.
+<span class="ok">STJ — REsp 1.861.237/SP:</span> "dano <span class="hi">in re ipsa</span> —
+presunção absoluta de abalo à honra e crédito."
+
+<span class="hi">III. DOS PEDIDOS</span>
+<span class="ok">a)</span> Tutela de urgência: exclusão do cadastro (CDC art. 84)
+<span class="ok">b)</span> Indenização por danos morais: <span class="warn">R$10.000,00</span>
+<span class="ok">c)</span> Custas e honorários (CPC art. 85)
+
+<span class="dim">Valor da causa: R$10.000,00</span></div>
+          </div>
+        </div>
+
+        <!-- PAINEL 3 — EDITOR CONTRATOS -->
+        <div id="dp3" class="demo-panel">
+          <div class="msg usr">
+            <div class="av">👤</div>
+            <div class="bubble u">Analise: Cláusula 8.2 proíbe qualquer atividade similar por 5 anos em todo o Brasil. Cláusula 12.1 prevê multa de 100% do contrato. Represento o contratado.</div>
+          </div>
+          <div class="msg">
+            <div class="av bot">📋</div>
+            <div class="bubble a"><span class="hi">📋 ANÁLISE CONTRATUAL — Prestação de Serviços</span>
+
+<span class="hi">📊 RESUMO:</span> <span class="crit">🔴 2 críticos</span> · <span class="warn">🟡 1 atenção</span> · <span class="ok">🟢 6 OK</span>
+
+<span class="crit">🔴 CRÍTICO — Cláusula 8.2 (Não-Concorrência)</span>
+Original: "...5 anos em todo o território nacional..."
+Risco: <span class="warn">STJ limita a 2 anos; âmbito nacional é desproporcional
+e pode ser declarado nulo (REsp 1.889.743/SP).</span>
+Sugestão: "...2 (dois) anos, restrita ao Estado de [UF]..."
+
+<span class="crit">🔴 CRÍTICO — Cláusula 12.1 (Multa Rescisória)</span>
+Original: "...multa de 100% do valor total do contrato..."
+Risco: <span class="warn">CDC art. 51, IV — cláusula abusiva.
+Pode ser anulada judicialmente.</span>
+Sugestão: "...20% sobre o valor das parcelas vincendas..."
+
+<span class="ok">✅ VEREDICTO: Não assine sem renegociar 8.2 e 12.1.
+Exija contraproposta por escrito.</span></div>
+          </div>
+        </div>
+
+        <!-- PAINEL 4 — PRAZOS -->
+        <div id="dp4" class="demo-panel">
+          <div class="msg usr">
+            <div class="av">👤</div>
+            <div class="bubble u">Sentença proferida hoje, 16/06/2026. Ação de cobrança, 3ª Vara Cível de SP. Processo civil. Quais os prazos?</div>
+          </div>
+          <div class="msg">
+            <div class="av bot">⏱️</div>
+            <div class="bubble a"><span class="hi">⏱️ GESTÃO DE PRAZOS</span>
+Referência: <span class="warn">16/06/2026</span> (sentença proferida)
+Regime: <span class="hi">CPC/2015 — dias ÚTEIS</span>
+
+<span class="crit">🔴 URGENTE (até 5 dias úteis):</span>
+<span class="ok">• Embargos de Declaração</span>
+  Vence: <span class="warn">23/06/2026</span> (5 dias úteis)
+  Cabível apenas se houver omissão, contradição
+  ou obscuridade (CPC art. 1.022)
+
+<span class="warn">🟡 ATENÇÃO (6–15 dias úteis):</span>
+<span class="ok">• Apelação</span>
+  Vence: <span class="warn">07/07/2026</span> (15 dias úteis)
+  Preparo obrigatório no ato (CPC art. 1.007)
+  Valor: consultar tabela TJSP vigente
+
+<span class="hi">⚠️ IMPORTANTE:</span>
+O prazo conta da <span class="warn">PUBLICAÇÃO no DJe</span>, não da decisão.
+Confirme a data de publicação e recalcule
+se for diferente de hoje.</div>
+          </div>
+        </div>
+
+        <!-- PAINEL 5 — RISCOS -->
+        <div id="dp5" class="demo-panel">
+          <div class="msg usr">
+            <div class="av">👤</div>
+            <div class="bubble u">Ação trabalhista por horas extras. Ex-funcionário de call center. 2ª Vara do Trabalho de SP. Empresa não tem controle de ponto.</div>
+          </div>
+          <div class="msg">
+            <div class="av bot">⚖️</div>
+            <div class="bubble a"><span class="hi">⚖️ ANÁLISE DE RISCO JURÍDICO</span>
+
+<span class="hi">📊 PROBABILIDADE DE ÊXITO: 72%</span>
+<span class="ok">████████░░</span> <span class="ok">Favorável</span>
+
+<span class="ok">✅ PONTOS FORTES:</span>
+• Ausência de ponto = ônus do empregador (CLT art. 74 §2º)
+• TST Súmula 338 aplica-se diretamente ao caso
+• TRT-2 posição consolidada pró-trabalhador em HE de call center
+
+<span class="warn">⚠️ PONTOS FRACOS:</span>
+• Call centers costumam ter log eletrônico de login/logout
+• Registro digital pode comprovar a jornada pelo empregador
+
+<span class="hi">🎯 ESTRATÉGIA:</span>
+Requerer juntada dos logs eletrônicos do sistema
+pelo réu (CPC art. 400). Focar nas horas fora
+do horário de cobertura do sistema.
+
+<span class="ok">💰 Vale litigar.</span>
+Condenação média TRT-2 em HE/call center: <span class="warn">R$18k–R$35k</span></div>
+          </div>
+        </div>
+
+        <!-- PAINEL 6 — HONORÁRIOS -->
+        <div id="dp6" class="demo-panel">
+          <div class="msg usr">
+            <div class="av">👤</div>
+            <div class="bubble u">Ação de indenização, pedido de R$50.000, pessoa física, alta probabilidade de êxito. Qual a estrutura de honorários?</div>
+          </div>
+          <div class="msg">
+            <div class="av bot">💰</div>
+            <div class="bubble a"><span class="hi">💰 CÁLCULO DE HONORÁRIOS</span>
+Valor: R$50.000 · Prob.: <span class="ok">alta</span>
+
+<span class="hi">💼 OPÇÃO 1 — MISTO (Recomendado)</span>
+  Entrada: <span class="warn">R$3.000</span> na assinatura
+  Êxito:   <span class="warn">15%</span> sobre o valor recebido ≈ R$7.500
+  <span class="ok">Total estimado: ~R$10.500</span>
+
+<span class="hi">💼 OPÇÃO 2 — PERCENTUAL FIXO</span>
+  20% do pedido = <span class="warn">R$10.000</span> (sem risco para o advogado)
+
+<span class="hi">💼 OPÇÃO 3 — PURO ÊXITO</span>
+  20-25% do ganho. Só para certeza acima de 85%.
+
+<span class="hi">⚖️ SUCUMBÊNCIA (CPC art. 85):</span>
+  10-20% da condenação pelo adversário
+  Estimativa: <span class="ok">R$5.000 a R$10.000</span>
+  <span class="dim">Pertence ao advogado (EAOAB art. 24)</span>
+
+<span class="ok">✅ CLÁUSULA SUGERIDA:</span>
+<span class="dim">"...R$3.000,00 no ato, mais 15% sobre o valor
+efetivamente recebido a título de indenização,
+pagos em 5 dias após o recebimento."</span></div>
+          </div>
+        </div>
+
+      </div><!-- /demo-main -->
+    </div><!-- /demo-box -->
+  </div>
+</section>
+
+<!-- ── PRICING ───────────────────────────────────────────── -->
+<section class="sec" id="assinar">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Preço</div>
+      <h2 class="sec-h">Simples.<br>Sem surpresa.</h2>
+    </div>
+    <div class="pricing-card reveal">
+      <div class="p-badge">Plano Mensal</div>
+      <div class="p-price"><sup>R$</sup>27</div>
+      <div class="p-period">por mês · cancele quando quiser</div>
+      <p class="p-desc">Acesso imediato aos 6 agentes. Funciona com o Claude gratuito. Sem instalação, sem contrato, sem fidelidade.</p>
+      <ul class="feat-list">
+        <li>Agente 01 — Pesquisador (STJ, STF, TST, TRTs, TJs)</li>
+        <li>Agente 02 — Redator de peças processuais completo</li>
+        <li>Agente 03 — Editor e revisor de contratos cláusula a cláusula</li>
+        <li>Agente 04 — Gerenciador de prazos CPC e CLT</li>
+        <li>Agente 05 — Analista de riscos com jurimetria</li>
+        <li>Agente 06 — Calculador de honorários (OAB + CPC art. 85)</li>
+        <li>Entrega imediata por WhatsApp após o pagamento</li>
+        <li>Atualizações mensais dos prompts incluídas</li>
+      </ul>
+      <a class="p-cta" href="https://pay.hotmart.com/V105994251O?off=7xe30h5v" target="_blank" rel="noopener">Assinar agora por R$27/mês →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ─────────────────────────────────────────── -->
+<section class="final">
+  <h2>Pare de perder<br><span class="thin">tempo manual.</span></h2>
+  <p>Enquanto você atende o próximo cliente, um agente já pesquisou os precedentes, calculou o prazo e estruturou a petição do caso anterior.</p>
+  <a class="btn-amber" href="https://pay.hotmart.com/V105994251O?off=7xe30h5v" target="_blank" rel="noopener">Quero os 6 agentes →</a>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  © 2026 Wladmir Bonadio Advocacia · OAB/SP 398.640 ·
+  <a href="https://avestra.com.br" target="_blank" rel="noopener">Avestra</a>
+</footer>
+
+<script>
+/* DEMO SWITCHER */
+var cfg = {
+  1: {ico:'🔍', name:'Pesquisador de Jurisprudência', tag:'STJ · STF · TRTs'},
+  2: {ico:'📄', name:'Redator de Petições',           tag:'Redação · Protocolo'},
+  3: {ico:'📋', name:'Editor de Contratos',           tag:'Revisão · Risco'},
+  4: {ico:'⏱️', name:'Gerenciador de Prazos',         tag:'CPC / CLT · Datas'},
+  5: {ico:'⚖️', name:'Analista de Riscos',            tag:'Jurimetria · Probabilidade'},
+  6: {ico:'💰', name:'Calculador de Honorários',      tag:'OAB · CPC art. 85'}
+};
+
+function sw(n) {
+  document.querySelectorAll('.demo-panel').forEach(function(p){ p.classList.remove('on'); });
+  var el = document.getElementById('dp' + n);
+  if (el) el.classList.add('on');
+  document.querySelectorAll('.d-btn').forEach(function(b){ b.classList.remove('on'); });
+  var btn = document.querySelector('[data-p="' + n + '"]');
+  if (btn) btn.classList.add('on');
+  var c = cfg[n];
+  if (c) {
+    document.getElementById('dico').textContent  = c.ico;
+    document.getElementById('dname').textContent = c.name;
+    document.getElementById('dtag').textContent  = c.tag;
+  }
+}
+
+/* STAGGER AGENT CARDS */
+document.querySelectorAll('.agent-card').forEach(function(el, i){
+  el.style.transitionDelay = (i * 0.07) + 's';
+});
+
+/* SCROLL REVEAL */
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+
+/* GTM — page_view */
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({event: 'page_view_copiloto_demo', product: 'copiloto_juridico_r27'});
+</script>
+</body>
+</html>

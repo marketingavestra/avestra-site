@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Curso IA Jur&iacute;dica &mdash; Domine IA em 30 Dias | Aavestra</title>
+<meta name="description" content="Pela primeira vez vou revelar o sistema completo que uso para economizar 2h por dia no escrit&oacute;rio usando IA.">
+
+<!-- Attribution (deve vir ANTES do GTM) -->
+<script src="../attribution.js"></script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W98WXF4D');</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        gold: '#C9A84C',
+        'gold-light': '#E8D48B',
+        'gold-dark': '#9A7B2E',
+        surface: '#050505',
+        'surface-2': '#0a0a0a',
+        'surface-3': '#111111',
+        'surface-4': '#1a1a1a',
+      },
+      fontFamily: {
+        display: ['Bebas Neue', 'Impact', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+html { scroll-behavior: smooth; }
+body { background: #050505; }
+
+.txt-gradient {
+  background: linear-gradient(135deg, #C9A84C 0%, #E8D48B 40%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-main {
+  background: linear-gradient(180deg, #22c55e 0%, #15803d 100%);
+  box-shadow: 0 0 30px rgba(34,197,94,0.4), 0 0 80px rgba(34,197,94,0.15), 0 4px 20px rgba(0,0,0,0.5);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.cta-main::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.6s;
+}
+.cta-main:hover::before { left: 100%; }
+.cta-main:hover {
+  box-shadow: 0 0 50px rgba(34,197,94,0.6), 0 0 100px rgba(34,197,94,0.2), 0 8px 40px rgba(0,0,0,0.6);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.gold-ring {
+  box-shadow: 0 0 0 2px rgba(201,168,76,0.3), 0 0 40px rgba(201,168,76,0.12), 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.noise::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-hero {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,76,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.04) 0%, transparent 50%);
+}
+
+.glow-section {
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.06) 0%, transparent 60%);
+}
+
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, rgba(201,168,76,0.5) 50%, transparent 95%);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-4 { transition-delay: 0.6s; }
+
+/* Video */
+.video-container {
+  position: relative;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: linear-gradient(180deg, #0f0f0f, #080808);
+}
+.video-container::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(201,168,76,0.4), transparent 60%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.play-btn {
+  width: 90px; height: 90px;
+  background: rgba(201,168,76,0.9);
+  box-shadow: 0 0 0 14px rgba(201,168,76,0.12), 0 0 60px rgba(201,168,76,0.3);
+  transition: all 0.4s;
+}
+.play-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 18px rgba(201,168,76,0.18), 0 0 80px rgba(201,168,76,0.5);
+}
+
+/* Seal */
+.seal-container {
+  width: 140px; height: 140px;
+  border: 3px solid #C9A84C;
+  box-shadow:
+    0 0 0 8px rgba(201,168,76,0.08),
+    0 0 50px rgba(201,168,76,0.2),
+    inset 0 0 30px rgba(201,168,76,0.05);
+  animation: sealPulse 3s ease-in-out infinite;
+}
+@keyframes sealPulse {
+  0%, 100% { box-shadow: 0 0 0 8px rgba(201,168,76,0.08), 0 0 50px rgba(201,168,76,0.2), inset 0 0 30px rgba(201,168,76,0.05); }
+  50% { box-shadow: 0 0 0 14px rgba(201,168,76,0.12), 0 0 70px rgba(201,168,76,0.3), inset 0 0 30px rgba(201,168,76,0.08); }
+}
+
+/* Testimonial carousel */
+.carousel-track {
+  display: flex;
+  animation: scrollCarousel 35s linear infinite;
+  gap: 24px;
+}
+@keyframes scrollCarousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.carousel-track:hover { animation-play-state: paused; }
+
+/* Floating particles */
+.particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  background: rgba(201,168,76,0.4);
+  border-radius: 50%;
+  animation: floatParticle var(--duration, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes floatParticle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  50% { transform: translateY(-60px) translateX(20px); opacity: 0.3; }
+  90% { opacity: 0.5; }
+}
+
+/* Module card hover */
+.module-item {
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  border-left: 3px solid transparent;
+  padding-left: 0;
+}
+.module-item:hover {
+  background: rgba(201,168,76,0.03);
+  border-left-color: #C9A84C;
+  padding-left: 20px;
+}
+
+/* Offer card */
+.offer-card {
+  position: relative;
+  background: linear-gradient(180deg, #111 0%, #080808 100%);
+  border: 1px solid rgba(201,168,76,0.25);
+}
+.offer-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: 10%; right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C9A84C, #E8D48B, #C9A84C, transparent);
+}
+.offer-card::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 20%; right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+}
+
+/* Marquee urgency */
+.marquee-container { overflow: hidden; }
+.marquee-content {
+  display: flex;
+  animation: marquee 25s linear infinite;
+  white-space: nowrap;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Stat counter */
+.stat-number {
+  background: linear-gradient(180deg, #fff 0%, #999 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+</style>
+</head>
+<body class="text-white font-body antialiased overflow-x-hidden">
+
+<!-- URGENCY MARQUEE BAR -->
+<div class="sticky top-0 z-50 bg-gold py-2.5 marquee-container">
+  <div class="marquee-content">
+    <span class="flex items-center gap-8 px-4 text-black font-bold text-[12px] tracking-wide uppercase">
+      <span>&#9679; Acesso imediato</span>
+      <span>&#9679; Por apenas R$47</span>
+      <span>&#9679; Garantia de 7 dias</span>
+      <span>&#9679; 5 aulas exclusivas</span>
+      <span>&#9679; Acesso imediato</span>
+      <span>&#9679; Por apenas R$47</span>
+      <span>&#9679; Garantia de 7 dias</span>
+      <span>&#9679; 5 aulas exclusivas</span>
+    </span>
+    <span class="flex items-center gap-8 px-4 text-black font-bold text-[12px] tracking-wide uppercase">
+      <span>&#9679; Acesso imediato</span>
+      <span>&#9679; Por apenas R$47</span>
+      <span>&#9679; Garantia de 7 dias</span>
+      <span>&#9679; 5 aulas exclusivas</span>
+      <span>&#9679; Acesso imediato</span>
+      <span>&#9679; Por apenas R$47</span>
+      <span>&#9679; Garantia de 7 dias</span>
+      <span>&#9679; 5 aulas exclusivas</span>
+    </span>
+  </div>
+</div>
+
+<!-- HERO SECTION -->
+<section class="relative glow-hero noise min-h-[90vh] flex items-center justify-center px-5 py-24">
+  <!-- Particles -->
+  <div class="particle" style="top:15%;left:10%;--duration:7s;--delay:0s;"></div>
+  <div class="particle" style="top:25%;left:85%;--duration:9s;--delay:1s;"></div>
+  <div class="particle" style="top:60%;left:15%;--duration:6s;--delay:2s;"></div>
+  <div class="particle" style="top:70%;left:75%;--duration:8s;--delay:0.5s;"></div>
+  <div class="particle" style="top:40%;left:50%;--duration:10s;--delay:3s;"></div>
+  <div class="particle" style="top:80%;left:30%;--duration:7s;--delay:1.5s;"></div>
+
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+
+    <!-- Logo -->
+    <div class="mb-8 reveal">
+      <span class="font-display text-5xl md:text-6xl text-gold tracking-[0.15em]">AAVESTRA</span>
+    </div>
+
+    <!-- Badge -->
+    <div class="mb-12 reveal reveal-delay-1">
+      <span class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/[0.02] border border-gold/20 text-gold text-[11px] font-semibold uppercase tracking-[0.2em] backdrop-blur-sm">
+        <span class="w-2 h-2 bg-gold rounded-full animate-pulse"></span>
+        Reservado para advogados que querem escalar com IA
+      </span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="font-display text-[clamp(2rem,7vw,5.5rem)] leading-[0.92] tracking-wide uppercase mb-10 reveal reveal-delay-2">
+      PELA PRIMEIRA VEZ EU VOU REVELAR
+      <span class="txt-gradient block mt-2">O SISTEMA QUE ECONOMIZA 2H POR DIA</span>
+      <span class="block text-[0.55em] text-gray-400 mt-2">NO ESCRIT&Oacute;RIO USANDO IA</span>
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-14 leading-relaxed font-light reveal reveal-delay-3">
+      Sem precisar saber programar. Sem abandonar o que j&aacute; funciona.<br class="hidden md:block">
+      <strong class="text-white/80">12 m&oacute;dulos pr&aacute;ticos. Resultado desde a primeira aula.</strong>
+    </p>
+
+    <!-- CTA -->
+    <div class="reveal reveal-delay-4">
+      <a href="#oferta" class="cta-main inline-block w-full max-w-xl py-6 px-12 rounded-2xl text-white font-extrabold text-base md:text-lg uppercase tracking-wider" id="cta-hero">
+        QUERO DOMINAR IA NO JUR&Iacute;DICO &rarr;
+      </a>
+      <p class="text-gray-600 text-[11px] mt-5 uppercase tracking-widest">&#128274; Pagamento seguro &middot; Acesso imediato &middot; 7 dias de garantia</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider-gold"></div>
+
+<!-- VIDEO SECTION -->
+<section class="py-24 px-5 relative glow-section">
+  <div class="max-w-4xl mx-auto reveal">
+    <p class="text-center text-gold text-[11px] font-bold uppercase tracking-[0.25em] mb-6">Assista antes que saia do ar</p>
+    <div class="video-container rounded-2xl aspect-video flex items-center justify-center gold-ring relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-gold/5 to-transparent"></div>
+      <div class="play-btn rounded-full flex items-center justify-center relative z-10 cursor-pointer">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="#050505"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+    <div class="flex items-center justify-center gap-6 mt-6">
+      <span class="flex items-center gap-2 text-gray-500 text-[11px]"><span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span> AO VIVO</span>
+      <span class="text-gray-600 text-[11px]">|</span>
+      <span class="text-gray-500 text-[11px]">23 min de conte&uacute;do exclusivo</span>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider-gold"></div>
+
+<!-- QUEM ESTÁ POR TRÁS -->
+<section class="py-28 px-5 relative noise">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-4">Quem est&aacute; por tr&aacute;s deste m&eacute;todo</p>
+      <h2 class="font-display text-[clamp(2.2rem,6vw,4.5rem)] leading-[0.9] tracking-wide uppercase">
+        CONHE&Ccedil;A O <span class="txt-gradient">DR. WLADMIR<br>BONADIO FILHO</span>
+      </h2>
+    </div>
+    <div class="flex flex-col md:flex-row items-center gap-12 reveal reveal-delay-1">
+      <div class="flex-shrink-0 relative">
+        <div class="absolute -inset-4 bg-gradient-to-b from-gold/10 to-transparent rounded-3xl blur-2xl"></div>
+        <div class="w-56 h-72 md:w-64 md:h-80 rounded-2xl overflow-hidden gold-ring bg-surface-3 relative">
+          <img src="FOTO-WLADMIR.jpg" alt="Dr. Wladmir Bonadio Filho" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-gradient-to-b from-surface-4 to-surface-3\'><span class=\'text-gold/30 text-7xl font-display\'>WB</span></div>'">
+        </div>
+      </div>
+      <div class="text-left space-y-5 max-w-lg">
+        <p class="text-gray-300 text-[17px] leading-relaxed">
+          <strong class="text-white text-xl block mb-2">Dr. Wladmir Bonadio Filho</strong>
+          Advogado h&aacute; mais de 10 anos (OAB/SP 398.640). Especialista em Direito Civil, Trabalhista, Consumidor, Previdenci&aacute;rio, Empresarial e Fam&iacute;lia.
+        </p>
+        <p class="text-gray-300 text-[17px] leading-relaxed">
+          Atua em S&atilde;o Paulo com escrit&oacute;rio pr&oacute;prio e <strong class="text-white">usa IA todos os dias</strong> para automatizar o operacional &mdash; de peti&ccedil;&otilde;es a contratos, de pesquisa a propostas comerciais.
+        </p>
+        <div class="bg-surface-3/80 border border-gold/20 rounded-2xl p-6 mt-6 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-1 h-full bg-gold/60"></div>
+          <p class="text-gold/90 italic text-[16px] leading-relaxed pl-4">
+            &ldquo;Tenho um escrit&oacute;rio com 4 caras trabalhando pra mim &mdash; s&atilde;o IAs. Economizo 2 horas por dia no m&iacute;nimo. E agora vou te ensinar exatamente como faz.&rdquo;
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider-gold"></div>
+
+<!-- SOCIAL PROOF / STATS -->
+<section class="py-24 px-5 relative bg-surface-2">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-14 reveal">
+      <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-4">N&uacute;meros que comprovam</p>
+      <h2 class="font-display text-[clamp(1.8rem,5vw,3.5rem)] leading-[0.9] tracking-wide uppercase">
+        <span class="txt-gradient">VALIDADO POR ADVOGADOS</span> QUE<br>ECONOMIZAM HORAS TODO DIA
+      </h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5 reveal reveal-delay-1">
+      <div class="bg-surface-3 border border-white/[0.04] rounded-2xl p-8 text-center hover:border-gold/20 transition-all duration-300 hover:-translate-y-1">
+        <p class="font-display text-5xl md:text-6xl text-gold mb-2">5</p>
+        <p class="text-[10px] text-gray-500 uppercase tracking-[0.2em]">Aulas</p>
+      </div>
+      <div class="bg-surface-3 border border-white/[0.04] rounded-2xl p-8 text-center hover:border-gold/20 transition-all duration-300 hover:-translate-y-1">
+        <p class="font-display text-5xl md:text-6xl text-gold mb-2">4</p>
+        <p class="text-[10px] text-gray-500 uppercase tracking-[0.2em]">Teses milion&aacute;rias</p>
+      </div>
+      <div class="bg-surface-3 border border-white/[0.04] rounded-2xl p-8 text-center hover:border-gold/20 transition-all duration-300 hover:-translate-y-1">
+        <p class="font-display text-5xl md:text-6xl text-gold mb-2">30%</p>
+        <p class="text-[10px] text-gray-500 uppercase tracking-[0.2em]">Honor&aacute;rios de &ecirc;xito</p>
+      </div>
+      <div class="bg-surface-3 border border-white/[0.04] rounded-2xl p-8 text-center hover:border-gold/20 transition-all duration-300 hover:-translate-y-1">
+        <p class="font-display text-5xl md:text-6xl text-gold mb-2">R$47</p>
+        <p class="text-[10px] text-gray-500 uppercase tracking-[0.2em]">Acesso vitalício</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL CAROUSEL -->
+<section class="py-16 bg-surface overflow-hidden border-y border-white/[0.03]">
+  <div class="max-w-full">
+    <div class="carousel-track">
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">RM</div>
+          <div><p class="text-white text-sm font-medium">Dr. Ricardo M.</p><p class="text-gray-600 text-[10px]">Advogado Trabalhista</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Reduzi o tempo de elabora&ccedil;&atilde;o de peti&ccedil;&otilde;es de 3h para 40min. O m&eacute;todo &eacute; direto e funciona desde o primeiro dia.&rdquo;</p>
+      </div>
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">AS</div>
+          <div><p class="text-white text-sm font-medium">Dra. Ana S.</p><p class="text-gray-600 text-[10px]">Direito de Fam&iacute;lia</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Nunca imaginei que IA pudesse ser t&atilde;o &uacute;til no jur&iacute;dico. Hoje fa&ccedil;o pesquisa jurisprudencial em minutos, n&atilde;o horas.&rdquo;</p>
+      </div>
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">PL</div>
+          <div><p class="text-white text-sm font-medium">Dr. Pedro L.</p><p class="text-gray-600 text-[10px]">Direito Empresarial</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Os templates de contrato economizam pelo menos 1h30 por dia. Meu escrit&oacute;rio nunca produziu tanto.&rdquo;</p>
+      </div>
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">CF</div>
+          <div><p class="text-white text-sm font-medium">Dra. Carla F.</p><p class="text-gray-600 text-[10px]">Direito Civil</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Achei que IA era coisa de programador. O Wladmir mostrou que qualquer advogado pode usar. Recomendo demais.&rdquo;</p>
+      </div>
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">MG</div>
+          <div><p class="text-white text-sm font-medium">Dr. Marcos G.</p><p class="text-gray-600 text-[10px]">Previdenci&aacute;rio</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Comecei a usar os agentes e j&aacute; na primeira semana consegui atender 3 clientes a mais. ROI absurdo.&rdquo;</p>
+      </div>
+      <!-- Duplicados para loop infinito -->
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">RM</div>
+          <div><p class="text-white text-sm font-medium">Dr. Ricardo M.</p><p class="text-gray-600 text-[10px]">Advogado Trabalhista</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Reduzi o tempo de elabora&ccedil;&atilde;o de peti&ccedil;&otilde;es de 3h para 40min. O m&eacute;todo &eacute; direto e funciona desde o primeiro dia.&rdquo;</p>
+      </div>
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">AS</div>
+          <div><p class="text-white text-sm font-medium">Dra. Ana S.</p><p class="text-gray-600 text-[10px]">Direito de Fam&iacute;lia</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Nunca imaginei que IA pudesse ser t&atilde;o &uacute;til no jur&iacute;dico. Hoje fa&ccedil;o pesquisa jurisprudencial em minutos, n&atilde;o horas.&rdquo;</p>
+      </div>
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">PL</div>
+          <div><p class="text-white text-sm font-medium">Dr. Pedro L.</p><p class="text-gray-600 text-[10px]">Direito Empresarial</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Os templates de contrato economizam pelo menos 1h30 por dia. Meu escrit&oacute;rio nunca produziu tanto.&rdquo;</p>
+      </div>
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">CF</div>
+          <div><p class="text-white text-sm font-medium">Dra. Carla F.</p><p class="text-gray-600 text-[10px]">Direito Civil</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Achei que IA era coisa de programador. O Wladmir mostrou que qualquer advogado pode usar. Recomendo demais.&rdquo;</p>
+      </div>
+      <div class="flex-shrink-0 w-[320px] bg-surface-3 border border-white/[0.05] rounded-2xl p-6">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-sm font-bold">MG</div>
+          <div><p class="text-white text-sm font-medium">Dr. Marcos G.</p><p class="text-gray-600 text-[10px]">Previdenci&aacute;rio</p></div>
+        </div>
+        <p class="text-gray-400 text-[13px] leading-relaxed">&ldquo;Comecei a usar os agentes e j&aacute; na primeira semana consegui atender 3 clientes a mais. ROI absurdo.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider-gold"></div>
+
+<!-- DOR / PROBLEMA -->
+<section class="py-28 px-5 relative noise glow-section">
+  <div class="max-w-2xl mx-auto reveal">
+    <h2 class="font-display text-[clamp(2.2rem,6vw,4.5rem)] leading-[0.9] tracking-wide uppercase text-center mb-16">
+      IMAGINE AGORA<br><span class="txt-gradient">NUNCA MAIS PERDER HORAS</span><br>EM TAREFAS QUE A IA FAZ EM MINUTOS
+    </h2>
+    <div class="space-y-7 text-gray-300 text-[17px] md:text-[18px] leading-[1.9]">
+      <p>Se voc&ecirc; chegou at&eacute; aqui, &eacute; porque j&aacute; sentiu na pele...</p>
+      <p class="pl-5 border-l-2 border-gold/30">Voc&ecirc; j&aacute; passou <strong class="text-white">3 horas redigindo uma peti&ccedil;&atilde;o</strong> que poderia ter sa&iacute;do em 20 minutos...</p>
+      <p class="pl-5 border-l-2 border-gold/30">J&aacute; perdeu uma tarde inteira pesquisando jurisprud&ecirc;ncia que a IA encontra em segundos...</p>
+      <p class="pl-5 border-l-2 border-gold/30">J&aacute; revisou contratos cl&aacute;usula por cl&aacute;usula quando um agente faz isso com checklist autom&aacute;tico...</p>
+      <p class="pl-5 border-l-2 border-gold/30">J&aacute; deixou de atender mais clientes porque <strong class="text-white">o operacional consome todo o seu dia</strong>...</p>
+      <p class="mt-10 text-center text-xl text-white/90">Enquanto isso, tem advogado atendendo o dobro de clientes, cobrando mais caro, e saindo do escrit&oacute;rio mais cedo...</p>
+      <p class="text-center text-2xl font-bold">Com <span class="txt-gradient">IA configurada do jeito certo.</span></p>
+      <p class="text-center text-gray-400 mt-4">Porque a IA n&atilde;o substitui o advogado &mdash; ela <strong class="text-white">multiplica</strong> o que voc&ecirc; j&aacute; sabe fazer.</p>
+    </div>
+    <div class="text-center mt-16">
+      <a href="#oferta" class="cta-main inline-block w-full max-w-xl py-6 px-12 rounded-2xl text-white font-extrabold text-base uppercase tracking-wider" id="cta-dor">
+        QUERO O CURSO POR R$47 &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider-gold"></div>
+
+<!-- CONTEÚDO / MÓDULOS -->
+<section class="bg-surface-2 py-28 px-5 relative noise">
+  <div class="max-w-3xl mx-auto">
+    <div class="text-center mb-16 reveal">
+      <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-4">O que voc&ecirc; vai aprender</p>
+      <h2 class="font-display text-[clamp(2.2rem,6vw,4.5rem)] leading-[0.9] tracking-wide uppercase">
+        A ENGENHARIA COMPLETA<br><span class="txt-gradient">DESTRINCHADA NA SUA FRENTE</span>
+      </h2>
+    </div>
+    <div class="space-y-0 reveal reveal-delay-1">
+      <div class="module-item flex gap-6 py-8 border-b border-white/[0.04] rounded-lg px-4">
+        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gold/10 border-2 border-gold/50 flex items-center justify-center text-gold font-display text-2xl">01</div>
+        <div class="pt-1">
+          <p class="text-white font-semibold text-[16px] mb-1">As 4 Teses Milion&aacute;rias da Advocacia Trabalhista</p>
+          <p class="text-gray-500 text-[14px]">Lei 4.950/1966, rescis&atilde;o indireta por FGTS, estabilidade de gr&aacute;vida e hora extra do banc&aacute;rio. Teses pac&iacute;ficas no TST, escaláveis e com valor de causa alto.</p>
+        </div>
+      </div>
+      <div class="module-item flex gap-6 py-8 border-b border-white/[0.04] rounded-lg px-4">
+        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gold/10 border-2 border-gold/50 flex items-center justify-center text-gold font-display text-2xl">02</div>
+        <div class="pt-1">
+          <p class="text-white font-semibold text-[16px] mb-1">Prospec&ccedil;&atilde;o de Clientes: Org&acirc;nico, Pago e Indica&ccedil;&atilde;o</p>
+          <p class="text-gray-500 text-[14px]">Tr&ecirc;s canais ativos de aquisi&ccedil;&atilde;o. Como montar um sistema de marketing de indica&ccedil;&atilde;o institucionalizado no seu escrit&oacute;rio com recompensa fixa por cliente fechado.</p>
+        </div>
+      </div>
+      <div class="module-item flex gap-6 py-8 border-b border-white/[0.04] rounded-lg px-4">
+        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gold/10 border-2 border-gold/50 flex items-center justify-center text-gold font-display text-2xl">03</div>
+        <div class="pt-1">
+          <p class="text-white font-semibold text-[16px] mb-1">Contrato de Honor&aacute;rios: O Que Nunca Coloca e O Que Nunca Esquece</p>
+          <p class="text-gray-500 text-[14px]">30% do valor l&iacute;quido, sem cl&aacute;usula de redu&ccedil;&atilde;o por acordo, documentos sempre em seu nome. Os erros que custam anos de trabalho.</p>
+        </div>
+      </div>
+      <div class="module-item flex gap-6 py-8 border-b border-white/[0.04] rounded-lg px-4">
+        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gold/10 border-2 border-gold/50 flex items-center justify-center text-gold font-display text-2xl">04</div>
+        <div class="pt-1">
+          <p class="text-white font-semibold text-[16px] mb-1">Do Ajuizamento &agrave; Execu&ccedil;&atilde;o: O Passo a Passo Completo</p>
+          <p class="text-gray-500 text-[14px]">Cautelar de arresto, t&eacute;cnicas de acordo, instru&ccedil;&atilde;o processual, recurso ordin&aacute;rio adesivo e execu&ccedil;&atilde;o provis&oacute;ria. O mapa completo de uma a&ccedil;&atilde;o trabalhista.</p>
+        </div>
+      </div>
+      <div class="module-item flex gap-6 py-8 rounded-lg px-4">
+        <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gold/10 border-2 border-gold/50 flex items-center justify-center text-gold font-display text-2xl">05</div>
+        <div class="pt-1">
+          <p class="text-white font-semibold text-[16px] mb-1">A T&eacute;cnica da Pauta: Como Estudar o Juiz Antes da Audi&ecirc;ncia</p>
+          <p class="text-gray-500 text-[14px]">Como usar a pauta completa do TRT para analisar instru&ccedil;&otilde;es anteriores, entender o perfil do magistrado e entrar na audi&ecirc;ncia sabendo o que ele valoriza nas provas.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-16 reveal reveal-delay-2">
+      <a href="#oferta" class="cta-main inline-block w-full max-w-xl py-6 px-12 rounded-2xl text-white font-extrabold text-base uppercase tracking-wider" id="cta-modulos">
+        QUERO ACESSAR O CURSO POR R$47 &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider-gold"></div>
+
+<!-- PRA QUEM É -->
+<section class="py-28 px-5 relative glow-section">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="font-display text-[clamp(2.2rem,6vw,4.5rem)] leading-[0.9] tracking-wide uppercase text-center mb-16 reveal">
+      ATEN&Ccedil;&Atilde;O:<br><span class="txt-gradient">N&Atilde;O &Eacute; PRA TODO MUNDO!</span>
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8 reveal reveal-delay-1">
+      <!-- PRA QUEM É -->
+      <div class="bg-surface-3/50 border border-green-500/10 rounded-2xl p-8">
+        <p class="text-green-400 font-bold text-sm uppercase tracking-wider mb-6 flex items-center gap-2">
+          <span class="w-2 h-2 bg-green-400 rounded-full"></span> Este curso &eacute; PRA VOC&Ecirc; se:
+        </p>
+        <div class="space-y-5">
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 text-lg mt-0.5 flex-shrink-0">&#10003;</span>
+            <span class="text-gray-300 text-[14px] leading-relaxed">Voc&ecirc; &eacute; advogado e quer usar IA para ganhar produtividade real no dia a dia.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 text-lg mt-0.5 flex-shrink-0">&#10003;</span>
+            <span class="text-gray-300 text-[14px] leading-relaxed">Voc&ecirc; est&aacute; cansado de perder horas em tarefas repetitivas que a IA resolve em minutos.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 text-lg mt-0.5 flex-shrink-0">&#10003;</span>
+            <span class="text-gray-300 text-[14px] leading-relaxed">Voc&ecirc; quer atender mais clientes sem aumentar sua carga hor&aacute;ria.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 text-lg mt-0.5 flex-shrink-0">&#10003;</span>
+            <span class="text-gray-300 text-[14px] leading-relaxed">Voc&ecirc; est&aacute; disposto a aplicar &mdash; n&atilde;o veio acumular teoria.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRA QUEM NÃO É -->
+      <div class="bg-surface-3/50 border border-red-500/10 rounded-2xl p-8">
+        <p class="text-red-400 font-bold text-sm uppercase tracking-wider mb-6 flex items-center gap-2">
+          <span class="w-2 h-2 bg-red-400 rounded-full"></span> N&Atilde;O &eacute; pra voc&ecirc; se:
+        </p>
+        <div class="space-y-5">
+          <div class="flex items-start gap-3">
+            <span class="text-red-400 text-lg mt-0.5 flex-shrink-0">&#10007;</span>
+            <span class="text-gray-300 text-[14px] leading-relaxed">Voc&ecirc; acha que IA vai substituir o advogado. N&atilde;o vai. Ela multiplica o que voc&ecirc; j&aacute; sabe.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-red-400 text-lg mt-0.5 flex-shrink-0">&#10007;</span>
+            <span class="text-gray-300 text-[14px] leading-relaxed">Voc&ecirc; quer solu&ccedil;&atilde;o m&aacute;gica sem colocar a m&atilde;o na massa.</span>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-red-400 text-lg mt-0.5 flex-shrink-0">&#10007;</span>
+            <span class="text-gray-300 text-[14px] leading-relaxed">Voc&ecirc; n&atilde;o est&aacute; disposto a dedicar 30 minutos por dia para implementar.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-16 reveal reveal-delay-2">
+      <a href="#oferta" class="cta-main inline-block w-full max-w-xl py-6 px-12 rounded-2xl text-white font-extrabold text-base uppercase tracking-wider" id="cta-quem">
+        GARANTIR MINHA VAGA POR R$47 &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider-gold"></div>
+
+<!-- OFERTA -->
+<section class="bg-surface-2 py-28 px-5 relative glow-section" id="oferta">
+  <div class="max-w-3xl mx-auto">
+
+    <!-- Selo circular -->
+    <div class="flex justify-center mb-14 reveal">
+      <div class="seal-container rounded-full flex flex-col items-center justify-center text-center bg-surface-3">
+        <span class="text-gold text-[9px] font-bold uppercase tracking-[0.25em]">Garantia</span>
+        <span class="text-white font-display text-5xl leading-none">7</span>
+        <span class="text-gold text-[9px] font-bold uppercase tracking-[0.25em]">Dias</span>
+      </div>
+    </div>
+
+    <!-- Offer card -->
+    <div class="offer-card rounded-3xl p-10 md:p-14 text-center reveal reveal-delay-1">
+
+      <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-6">Acesso imediato ao curso completo</p>
+      <h2 class="font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-[0.9] tracking-wide uppercase mb-3">
+        CURSO COMPLETO<br><span class="txt-gradient">IA JUR&Iacute;DICA</span>
+      </h2>
+      <p class="text-gray-500 text-sm mb-12">5 aulas pr&aacute;ticas com o m&eacute;todo completo de advocacia trabalhista escalável</p>
+
+      <!-- O que está incluso -->
+      <div class="text-left bg-surface/30 border border-white/[0.04] rounded-2xl p-8 md:p-10 mb-12">
+        <p class="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-6">Tudo que est&aacute; incluso:</p>
+        <div class="space-y-5">
+          <div class="flex items-center gap-4 text-[15px] text-gray-300 pb-5 border-b border-white/[0.04]">
+            <span class="text-green-400 text-lg flex-shrink-0">&#10003;</span>
+            <span class="flex-1">As 4 teses milion&aacute;rias pac&iacute;ficas no TST com modelos de inicial</span>
+          </div>
+          <div class="flex items-center gap-4 text-[15px] text-gray-300 pb-5 border-b border-white/[0.04]">
+            <span class="text-green-400 text-lg flex-shrink-0">&#10003;</span>
+            <span class="flex-1">Sistema de prospec&ccedil;&atilde;o: org&acirc;nico, pago e indica&ccedil;&atilde;o com recompensa</span>
+          </div>
+          <div class="flex items-center gap-4 text-[15px] text-gray-300 pb-5 border-b border-white/[0.04]">
+            <span class="text-green-400 text-lg flex-shrink-0">&#10003;</span>
+            <span class="flex-1">Contrato de honor&aacute;rios correto: 30%, sem cl&aacute;usulas que cortam seus ganhos</span>
+          </div>
+          <div class="flex items-center gap-4 text-[15px] text-gray-300 pb-5 border-b border-white/[0.04]">
+            <span class="text-green-400 text-lg flex-shrink-0">&#10003;</span>
+            <span class="flex-1">Passo a passo do ajuizamento &agrave; execu&ccedil;&atilde;o com t&eacute;cnicas de acordo</span>
+          </div>
+          <div class="flex items-center gap-4 text-[15px] text-gray-300 pb-5 border-b border-white/[0.04]">
+            <span class="text-green-400 text-lg flex-shrink-0">&#10003;</span>
+            <span class="flex-1">T&eacute;cnica da pauta: como estudar o magistrado antes da audi&ecirc;ncia</span>
+          </div>
+          <div class="flex items-center gap-4 text-[15px] text-gray-300">
+            <span class="text-green-400 text-lg flex-shrink-0">&#10003;</span>
+            <span class="flex-1">Acesso vitalício + atualizações futuras incluídas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-12">
+        <p class="text-gray-500 text-lg line-through mb-3">De R$ 97</p>
+        <div class="flex items-baseline justify-center gap-2">
+          <span class="text-gold text-2xl font-bold">R$</span>
+          <span class="font-display text-[6rem] md:text-[8rem] leading-none txt-gradient">47</span>
+        </div>
+        <p class="text-gray-500 text-sm mt-3">pagamento &uacute;nico &middot; acesso imediato</p>
+      </div>
+
+      <!-- CTA -->
+      <a href="https://pay.hotmart.com/K106018758V?off=1erqwfd9" class="cta-main inline-block w-full max-w-xl py-7 px-12 rounded-2xl text-white font-extrabold text-lg uppercase tracking-wider mb-5" id="cta-main" target="_blank" rel="noopener">
+        GARANTIR MINHA VAGA POR R$47 &rarr;
+      </a>
+      <p class="text-gray-600 text-[11px] uppercase tracking-widest">&#128274; Pagamento 100% seguro via Hotmart &middot; Acesso imediato</p>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA EXPANDIDA -->
+<section class="py-24 px-5">
+  <div class="max-w-3xl mx-auto reveal">
+    <div class="bg-surface-3/50 border border-gold/15 rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-start gap-8 relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/20 to-transparent"></div>
+      <div class="flex-shrink-0">
+        <div class="w-20 h-20 rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center">
+          <span class="text-4xl">&#128737;&#65039;</span>
+        </div>
+      </div>
+      <div class="space-y-5">
+        <h3 class="text-white font-display text-3xl uppercase tracking-wide">GARANTIA INCONDICIONAL &mdash; 7 DIAS</h3>
+        <p class="text-gray-400 text-[16px] leading-relaxed">O risco &eacute; todo meu. N&atilde;o seu.</p>
+        <p class="text-gray-400 text-[16px] leading-relaxed">Acesse o curso completo. Assista as aulas. Aplique os prompts. Se em 7 dias voc&ecirc; n&atilde;o sentir que o conte&uacute;do move o ponteiro do seu escrit&oacute;rio, me mande uma mensagem e eu devolvo cada centavo.</p>
+        <p class="text-white font-semibold text-[16px]">Sem perguntas. Sem burocracia. Sem letras mi&uacute;das.</p>
+        <p class="text-gray-400 text-[16px] leading-relaxed">Voc&ecirc; fica com tudo que aprendeu. Eu fico com o preju&iacute;zo. Simples assim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider-gold"></div>
+
+<!-- FECHAMENTO -->
+<section class="bg-surface-2 py-28 px-5 relative glow-hero noise">
+  <div class="max-w-2xl mx-auto reveal">
+    <div class="space-y-7 text-gray-300 text-[17px] md:text-[19px] leading-[1.9] text-center">
+      <p class="text-gray-500 text-sm uppercase tracking-widest mb-8">Uma &uacute;ltima coisa...</p>
+      <p>Olha, se voc&ecirc; chegou at&eacute; aqui e alguma coisa do que eu falei fez sentido...</p>
+      <p>Se voc&ecirc; concorda que <strong class="text-white">perder horas em tarefas repetitivas ficou caro demais</strong>...</p>
+      <p>Se voc&ecirc; j&aacute; sentiu o peso de ver colegas atendendo o dobro de clientes enquanto voc&ecirc; est&aacute; preso no operacional...</p>
+      <p class="text-white text-xl font-semibold pt-4">Ent&atilde;o essa decis&atilde;o j&aacute; foi tomada dentro de voc&ecirc;.<br>Falta s&oacute; executar.</p>
+      <div class="py-8">
+        <div class="divider-gold"></div>
+      </div>
+      <p><strong class="text-white">Caminho 1</strong> &mdash; Continuar fazendo tudo manualmente e torcer pra dar conta...</p>
+      <p><strong class="text-white">Caminho 2</strong> &mdash; Instalar IA no seu escrit&oacute;rio e multiplicar sua capacidade sem aumentar 1 hora na jornada.</p>
+      <p class="text-gold font-semibold text-xl pt-4">S&oacute; um desses caminhos te tira do ciclo de sobrecarga.</p>
+      <p class="font-display text-3xl md:text-4xl text-white uppercase tracking-wide pt-6">Em 12 m&oacute;dulos eu te entrego o sistema inteiro.</p>
+    </div>
+    <div class="text-center mt-16">
+      <a href="https://pay.hotmart.com/K106018758V?off=1erqwfd9" class="cta-main inline-block w-full max-w-xl py-7 px-12 rounded-2xl text-white font-extrabold text-lg uppercase tracking-wider" id="cta-bottom" target="_blank" rel="noopener">
+        GARANTIR MINHA VAGA POR R$47 &rarr;
+      </a>
+      <p class="text-gray-600 text-[11px] mt-5 uppercase tracking-widest">&#128274; Pagamento seguro via Hotmart &middot; Acesso imediato &middot; 7 dias de garantia</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-white/[0.04] py-12 px-5 text-center bg-surface">
+  <p class="text-gray-600 text-xs">&copy; 2026 Aavestra Tecnologia. Todos os direitos reservados.</p>
+  <p class="text-gray-600 text-xs mt-4">
+    <a href="https://wa.me/5511965817604" class="text-gold/70 hover:text-gold transition-colors">Fale conosco</a>
+    <span class="mx-2">&middot;</span>
+    <a href="ias-para-advogados.html" class="text-gold/70 hover:text-gold transition-colors">Voltar ao diret&oacute;rio</a>
+  </p>
+</footer>
+
+<!-- SCROLL REVEAL SCRIPT -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<!-- TRACKING -->
+<script>
+document.querySelectorAll('[id^="cta"]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var utms = window._avestra_utms || {};
+    var isHotmart = (this.id === 'cta-main' || this.id === 'cta-bottom');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: isHotmart ? 'begin_checkout' : 'vsl_cta_click',
+      product: 'curso_ia_juridico',
+      product_price: 47,
+      currency: 'BRL',
+      cta_id: this.id,
+      utm_data: utms
+    });
+  });
+});
+</script>
+
+</body>
+</html>
